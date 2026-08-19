@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VSM – Guía Agile Champions</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #1f2328;
+      background: #f7f8fa;
+      padding: 24px 16px 48px;
+    }
+
+    .page {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background: #1f2328;
+      color: #fff;
+      border-radius: 8px 8px 0 0;
+      padding: 28px 32px 24px;
+      margin-bottom: 0;
+    }
+    .header-eyebrow {
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #8b949e;
+      margin-bottom: 6px;
+    }
+    .header h1 {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+    .header p {
+      font-size: 13px;
+      color: #8b949e;
+    }
+
+    .progress-bar-wrap {
+      background: #e5e7eb;
+      height: 4px;
+      margin-bottom: 24px;
+      border-radius: 0 0 2px 2px;
+    }
+    .progress-bar-fill {
+      height: 4px;
+      background: #3b82d4;
+      width: 0%;
+      border-radius: 0 0 2px 2px;
+      transition: width .4s ease;
+    }
+
+    .section-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 24px 28px;
+      margin-bottom: 20px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .section-badge {
+      background: #3b82d4;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      padding: 3px 9px;
+      border-radius: 12px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .section-badge.step1 { background: #7c5cd8; }
+    .section-badge.step2 { background: #0891b2; }
+    .section-badge.step3 { background: #059669; }
+    .section-badge.step4 { background: #d97706; }
+    .section-badge.step5 { background: #db2877; }
+    .section-badge.step6 { background: #3b82d4; }
+    .section-badge.step7 { background: #64748b; }
+
+    .section-header h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1f2328;
+    }
+
+    .hint {
+      font-size: 12px;
+      color: #57606a;
+      margin-bottom: 14px;
+      padding: 8px 12px;
+      background: #f7f8fa;
+      border-left: 3px solid #e5e7eb;
+      border-radius: 0 4px 4px 0;
+    }
+    .hint strong { color: #1f2328; }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1f2328;
+      margin-bottom: 5px;
+    }
+    label .optional {
+      font-weight: 400;
+      color: #57606a;
+      font-size: 12px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 8px 11px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 13px;
+      color: #1f2328;
+      background: #fff;
+      transition: border-color .2s;
+      outline: none;
+    }
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #3b82d4;
+      box-shadow: 0 0 0 3px rgba(59,130,212,.12);
+    }
+    textarea { resize: vertical; min-height: 72px; }
+
+    .field { margin-bottom: 16px; }
+    .field:last-child { margin-bottom: 0; }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 560px) { .field-row { grid-template-columns: 1fr; } }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    @media (max-width: 480px) { .checkbox-grid { grid-template-columns: 1fr; } }
+
+    .checkbox-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 8px 10px;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+    .checkbox-item:hover { border-color: #3b82d4; background: #f0f6ff; }
+    .checkbox-item input[type="checkbox"] { margin-top: 2px; flex-shrink: 0; accent-color: #3b82d4; }
+    .checkbox-item span { font-size: 13px; color: #1f2328; line-height: 1.4; }
+
+    .rating-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+    .rating-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      border: 1px solid #d1d5db;
+      background: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      color: #57606a;
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .rating-btn:hover { border-color: #3b82d4; color: #3b82d4; background: #f0f6ff; }
+    .rating-btn.selected { background: #3b82d4; border-color: #3b82d4; color: #fff; }
+
+    .rating-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #57606a;
+      margin-top: 4px;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #e5e7eb;
+      margin: 18px 0;
+    }
+
+    .submit-wrap {
+      text-align: center;
+      margin-top: 28px;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 11px 36px;
+      background: #3b82d4;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      letter-spacing: .02em;
+      transition: background .15s;
+    }
+    .btn-primary:hover { background: #2563b0; }
+
+    .btn-secondary {
+      display: inline-block;
+      padding: 11px 28px;
+      background: #fff;
+      color: #1f2328;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid #d1d5db;
+      border-radius: 7px;
+      cursor: pointer;
+      margin-right: 10px;
+      transition: border-color .15s;
+    }
+    .btn-secondary:hover { border-color: #3b82d4; color: #3b82d4; }
+
+    .quote-block {
+      border-left: 3px solid #3b82d4;
+      padding: 10px 16px;
+      margin: 18px 0 0;
+      background: #f7f8fa;
+      border-radius: 0 6px 6px 0;
+    }
+    .quote-block p { font-size: 13px; font-style: italic; color: #57606a; }
+    .quote-block cite { font-size: 12px; color: #8b949e; display: block; margin-top: 4px; font-style: normal; }
+
+    .success-banner {
+      display: none;
+      background: #d1fae5;
+      border: 1px solid #6ee7b7;
+      color: #065f46;
+      border-radius: 7px;
+      padding: 14px 20px;
+      text-align: center;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="header-eyebrow">Agile Champions · IBM BPO</div>
+    <h1>Guía de Facilitación — Value Stream Mapping (VSM)</h1>
+    <p>Completa cada sección a medida que avanzas en el taller con el equipo.</p>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progressFill"></div>
+  </div>
+
+  <div class="success-banner" id="successBanner">
+    ✅ Formulario guardado correctamente. ¡Buen trabajo facilitando el VSM!
+  </div>
+
+  <!-- 0. Datos generales -->
+  <div class="section-card">
+    <div class="section-header">
+      <span class="section-badge step1">Info General</span>
+      <h2>Datos del taller</h2>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="proceso">Proceso / área analizada</label>
+        <input type="text" id="proceso" placeholder="Ej. Ciclo de facturación BPO" />
+      </div>
+      <div class="field">
+        <label for="fecha">Fecha del taller</label>
+        <input type="date" id="fecha" />
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="facilitador">Agile Champion facilitador/a</label>
+        <input type="text" id="facilitador" placeholder="Nombre completo" />
+      </div>
+      <div class="field">
+        <label for="squad">Squad / equipo</label>
+        <input type="text" id="squad" placeholder="Ej. Squad Facturación Latam" />
+      </div>
+    </div>
+    <div class="field">
+      <label for="participantes">Participantes del taller <span class="optional">(nombres o roles)</span></label>
+      <textarea id="participantes" rows="2" placeholder="Ej. Ana García (Cliente), Luis Torres (Líder), Sara López (Analista)…"></textarea>
+    </div>
+  </div>
+
+  <!-- 1. Alcance -->
+  <div class="section-card">
+    <div class="section-header">
+      <span class="section-badge step1">Paso 1</span>
+      <h2>Definir el alcance</h2>
+    </div>
+    <div class="hint">
+      <strong>Objetivo:</strong> Delimitar con claridad qué procesos, tareas o actividades se van a analizar durante la sesión.
+    </div>
+    <div class="field">
+      <label for="alcance-inicio">Punto de inicio del flujo</label>
+      <input type="text" id="alcance-inicio" placeholder="Ej. Recepción de solicitud del cliente" />
+    </div>
+    <div class="field">
+      <label for="alcance-fin">Punto de fin del flujo</label>
+      <input type="text" id="alcance-fin" placeholder="Ej. Entrega de factura aprobada" />
+    </div>
+    <div class="field">
+      <label for="alcance-notas">Procesos o actividades incluidas en el alcance</label>
+      <textarea id="alcance-notas" placeholder="Lista los pasos o actividades del proceso que el equipo ha acordado analizar…"></textarea>
+    </div>
+    <div class="field">
+      <label for="alcance-excluye">¿Qué queda fuera del alcance? <span class="optional">(opcional)</span></label>
+      <input type="text" id="alcance-excluye" placeholder="Ej. Proceso de cobranza posterior a la emisión" />
+    </div>
+  </div>
+
+  <!-- 2. Estado actual -->
+  <div class="section-card">
+    <div class="section-header">
+      <span class="section-badge step2">Paso 2</span>
+      <h2>Mapa del estado actual</h2>
+    </div>
+    <div class="hint">
+      <strong>Objetivo:</strong> Documentar el proceso tal como es hoy con el equipo multidisciplinario. Usa símbolos estándar: rectángulos (valor agregado), rombos (decisión), óvalos (transferencia de información).
+    </div>
+    <div class="field">
+      <label for="pasos-actuales">Pasos / actividades del proceso actual</label>
+      <textarea id="pasos-actuales" rows="4" placeholder="1. Recepción de solicitud&#10;2. Validación manual de datos&#10;3. Aprobación del supervisor&#10;…"></textarea>
+    </div>
+    <hr class="divider" />
+    <p style="font-size:13px; font-weight:600; margin-bottom:12px;">Métricas clave (registra los valores actuales)</p>
+    <div class="field-row">
+      <div class="field">
+        <label for="tiempo-ciclo">Tiempo de ciclo total</label>
+        <input type="text" id="tiempo-ciclo" placeholder="Ej. 5 días hábiles" />
+      </div>
+      <div class="field">
+        <label for="tasa-error">Tasa de error / defectos</label>
+        <input type="text" id="tasa-error" placeholder="Ej. 8% de facturas con error" />
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="tiempo-espera">Tiempo de espera promedio</label>
+        <input type="text" id="tiempo-espera" placeholder="Ej. 2 días en aprobaciones" />
+      </div>
+      <div class="field">
+        <label for="desempeno">Desempeño / throughput</label>
+        <input type="text" id="desempeno" placeholder="Ej. 150 facturas/semana" />
+      </div>
+    </div>
+    <div class="field">
+      <label for="otras-metricas">Otras métricas relevantes <span class="optional">(opcional)</span></label>
+      <input type="text" id="otras-metricas" placeholder="Ej. Tiempo de inactividad del sistema, SLA…" />
+    </div>
+  </div>
+
+  <!-- 3. Análisis -->
+  <div class="section-card">
+    <div class="section-header">
+      <span class="section-badge step3">Paso 3</span>
+      <h2>Analizar el estado actual — Identificación de desperdicios</h2>
+    </div>
+    <div class="hint">
+      <strong>Objetivo:</strong> Separar las actividades de valor agregado de las que no aportan valor. Identifica cuellos de botella, demoras y áreas de alta variación.
+    </div>
+    <div class="field">
+      <label>Tipos de desperdicio detectados <span class="optional">(selecciona todos los que apliquen)</span></label>
+      <div class="checkbox-grid">
+        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="espera" /><span>⏱ Tiempos de espera</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="retrabajo" /><span>🔄 Retrabajo</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="defectos" /><span>⚠️ Defectos</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="trabajo-innecesario" /><span>🗂 Trabajo innecesario</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="talento-subutilizado" /><span>👤 Talento subutilizado</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="datos-duplicados" /><span>📋 Entrada de datos duplicada</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="manual" /><span>🖐 Procesamiento manual rutinario</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="comunicacion" /><span>💬 Intercambio de info inadecuado</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="aprobaciones-lentas" /><span>📌 Aprobaciones con largos plazos</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="calidad" /><span>🔍 Problemas de calidad frecuentes</span></label>
+      </div>
+    </div>
+    <div class="field" style="margin-top:16px;">
+      <label for="actividades-valor">Actividades de valor agregado identificadas</label>
+      <textarea id="actividades-valor" placeholder="¿Qué pasos contribuyen directamente al resultado esperado por el cliente?…"></textarea>
+    </div>
+    <div class="field">
+      <label for="sin-valor">Actividades sin valor agregado / ineficiencias</label>
+      <textarea id="sin-valor" placeholder="Describe cada ineficiencia detectada y en qué paso del proceso ocurre…"></textarea>
+    </div>
+    <div class="field">
+      <label for="cuellos">Cuellos de botella / áreas de alta variación</label>
+      <textarea id="cuellos" placeholder="¿Dónde se acumula el trabajo? ¿Qué pasos tienen mayor variabilidad en tiempo o calidad?…"></textarea>
+    </div>
+  </div>
+
+  <!-- 4. Estado futuro -->
+  <div class="section-card">
+    <div class="section-header">
+      <span class="section-badge step4">Paso 4</span>
+      <h2>Mapa del estado futuro</h2>
+    </div>
+    <div class="hint">
+      <strong>Objetivo:</strong> Rediseñar el proceso para minimizar desperdicios. Considera las estrategias disponibles — no implica ejecutarlas todas, sino evaluar si pueden generar el valor agregado esperado.
+    </div>
+    <div class="field">
+      <label>Estrategias a considerar <span class="optional">(marca las que el equipo evaluó como potencialmente aplicables)</span></label>
+      <div class="checkbox-grid">
+        <label class="checkbox-item"><input type="checkbox" name="estrategia" value="automatizacion" /><span>🤖 Automatizar tareas rutinarias (RPA, bots)</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="estrategia" value="facturacion-electronica" /><span>🧾 Facturación electrónica automática</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="estrategia" value="workflow" /><span>🔀 Sistema de gestión de flujo de trabajo</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="estrategia" value="colaboracion" /><span>🤝 Mejora de colaboración entre squads</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="estrategia" value="estandarizacion" /><span>📏 Estandarización de criterios y formatos</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="estrategia" value="otra" /><span>➕ Otra (detallar abajo)</span></label>
+      </div>
+    </div>
+    <div class="field" style="margin-top:16px;">
+      <label for="estado-futuro-desc">Descripción del estado futuro propuesto</label>
+      <textarea id="estado-futuro-desc" rows="4" placeholder="Describe cómo quedaría el proceso rediseñado paso a paso…"></textarea>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="tiempo-ciclo-futuro">Tiempo de ciclo esperado</label>
+        <input type="text" id="tiempo-ciclo-futuro" placeholder="Ej. 2 días hábiles" />
+      </div>
+      <div class="field">
+        <label for="reduccion-error">Reducción de error esperada</label>
+        <input type="text" id="reduccion-error" placeholder="Ej. Reducir de 8% a 2%" />
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Plan de implementación -->
+  <div class="section-card">
+    <div class="section-header">
+      <span class="section-badge step5">Paso 5</span>
+      <h2>Plan de implementación</h2>
+    </div>
+    <div class="hint">
+      <strong>Objetivo:</strong> Definir responsables, plazos, recursos y KPIs para llevar el estado actual al estado futuro.
+    </div>
+    <div class="field">
+      <label for="acciones">Acciones prioritarias y responsables</label>
+      <textarea id="acciones" rows="4" placeholder="Acción 1 – Responsable – Plazo&#10;Acción 2 – Responsable – Plazo&#10;…"></textarea>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="piloto">Área o proyecto piloto</label>
+        <input type="text" id="piloto" placeholder="Ej. Squad Facturación MX (inicio gradual)" />
+      </div>
+      <div class="field">
+        <label for="recursos">Recursos necesarios</label>
+        <input type="text" id="recursos" placeholder="Ej. Licencia herramienta, 20h capacitación" />
+      </div>
+    </div>
+    <div class="field">
+      <label for="kpis">KPIs para medir el progreso</label>
+      <textarea id="kpis" rows="2" placeholder="Ej. % reducción tiempo de ciclo, tasa de error mensual, NPS cliente…"></textarea>
+    </div>
+  </div>
+
+  <!-- 6. Supervisar -->
+  <div class="section-card">
+    <div class="section-header">
+      <span class="section-badge step6">Paso 6</span>
+      <h2>Supervisar, controlar y estandarizar</h2>
+    </div>
+    <div class="hint">
+      <strong>Objetivo:</strong> Asegurar sostenibilidad: seguimiento continuo, auditorías, documentación y cultura de mejora continua.
+    </div>
+    <div class="field">
+      <label for="seguimiento">Sistema de medición y seguimiento continuo</label>
+      <textarea id="seguimiento" rows="2" placeholder="¿Cómo y con qué frecuencia se medirán los KPIs? ¿Quién es responsable?…"></textarea>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="frecuencia-revision">Frecuencia de auditoría / revisión</label>
+        <select id="frecuencia-revision">
+          <option value="">Selecciona…</option>
+          <option value="semanal">Semanal</option>
+          <option value="quincenal">Quincenal</option>
+          <option value="mensual">Mensual</option>
+          <option value="trimestral">Trimestral</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="responsable-seguimiento">Responsable del seguimiento</label>
+        <input type="text" id="responsable-seguimiento" placeholder="Nombre o rol" />
+      </div>
+    </div>
+    <div class="field">
+      <label for="estandarizacion">Plan de estandarización y documentación</label>
+      <textarea id="estandarizacion" rows="2" placeholder="¿Dónde se documenta el nuevo proceso? ¿Cómo se capacitará al equipo?…"></textarea>
+    </div>
+    <div class="field">
+      <label for="mejora-continua">Acciones para fomentar la cultura de mejora continua</label>
+      <textarea id="mejora-continua" rows="2" placeholder="Ej. Revisión mensual del VSM, retrospectivas de proceso, reconocimiento de mejoras…"></textarea>
+    </div>
+  </div>
+
+  <!-- 7. Reflexión -->
+  <div class="section-card">
+    <div class="section-header">
+      <span class="section-badge step7">Reflexión</span>
+      <h2>Evaluación del taller</h2>
+    </div>
+    <div class="field">
+      <label>¿Qué tan alineado estuvo el equipo durante la sesión?</label>
+      <div class="rating-row" id="ratingAlineacion">
+        <button type="button" class="rating-btn" data-val="1">1</button>
+        <button type="button" class="rating-btn" data-val="2">2</button>
+        <button type="button" class="rating-btn" data-val="3">3</button>
+        <button type="button" class="rating-btn" data-val="4">4</button>
+        <button type="button" class="rating-btn" data-val="5">5</button>
+      </div>
+      <div class="rating-labels"><span>Poco alineado</span><span>Muy alineado</span></div>
+    </div>
+    <div class="field" style="margin-top:16px;">
+      <label>¿Qué tan claro quedó el camino hacia el estado futuro?</label>
+      <div class="rating-row" id="ratingClaridad">
+        <button type="button" class="rating-btn" data-val="1">1</button>
+        <button type="button" class="rating-btn" data-val="2">2</button>
+        <button type="button" class="rating-btn" data-val="3">3</button>
+        <button type="button" class="rating-btn" data-val="4">4</button>
+        <button type="button" class="rating-btn" data-val="5">5</button>
+      </div>
+      <div class="rating-labels"><span>Poco claro</span><span>Muy claro</span></div>
+    </div>
+    <div class="field" style="margin-top:16px;">
+      <label for="aprendizajes">Aprendizajes clave del taller <span class="optional">(notas del facilitador)</span></label>
+      <textarea id="aprendizajes" rows="3" placeholder="¿Qué surgió de forma inesperada? ¿Qué mejorarías en la próxima sesión?…"></textarea>
+    </div>
+    <div class="field">
+      <label for="proximos-pasos">Próximos pasos acordados con el equipo</label>
+      <textarea id="proximos-pasos" rows="2" placeholder="Ej. Revisión del plan en Sprint Review del lunes, asignar owner del piloto…"></textarea>
+    </div>
+    <div class="quote-block">
+      <p>"No se puede generar progreso cuando nos conformamos con las situaciones existentes."</p>
+      <cite>— Taiichi Ohno, Toyota</cite>
+    </div>
+  </div>
+
+  <div class="submit-wrap">
+    <button type="button" class="btn-secondary" onclick="clearForm()">Limpiar formulario</button>
+    <button type="button" class="btn-primary" onclick="submitForm()">Guardar y finalizar taller</button>
+  </div>
+
+</div>
+
+<script>
+  function updateProgress() {
+    const allInputs = document.querySelectorAll('input[type="text"], input[type="date"], textarea, select');
+    let filled = 0;
+    allInputs.forEach(el => { if (el.value.trim() !== '') filled++; });
+    const pct = Math.round((filled / allInputs.length) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+  }
+  document.querySelectorAll('input, textarea, select').forEach(el => {
+    el.addEventListener('input', updateProgress);
+    el.addEventListener('change', updateProgress);
+  });
+
+  document.querySelectorAll('.rating-row').forEach(row => {
+    row.querySelectorAll('.rating-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        row.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        updateProgress();
+      });
+    });
+  });
+
+  document.querySelectorAll('.checkbox-item input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      cb.closest('.checkbox-item').style.borderColor = cb.checked ? '#3b82d4' : '';
+      cb.closest('.checkbox-item').style.background  = cb.checked ? '#f0f6ff' : '';
+    });
+  });
+
+  function submitForm() {
+    document.getElementById('successBanner').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function clearForm() {
+    if (!confirm('¿Deseas limpiar todos los campos del formulario?')) return;
+    document.querySelectorAll('input[type="text"], input[type="date"], textarea').forEach(el => el.value = '');
+    document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+    document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      cb.checked = false;
+      cb.closest('.checkbox-item').style.borderColor = '';
+      cb.closest('.checkbox-item').style.background = '';
+    });
+    document.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('selected'));
+    document.getElementById('successBanner').style.display = 'none';
+    document.getElementById('progressFill').style.width = '0%';
+  }
+</script>
+</body>
+</html>
