@@ -21,6 +21,7 @@
       margin: 0 auto;
     }
 
+    /* ── Header ── */
     .header {
       background: #1f2328;
       color: #fff;
@@ -46,6 +47,7 @@
       color: #8b949e;
     }
 
+    /* ── Progress bar ── */
     .progress-bar-wrap {
       background: #e5e7eb;
       height: 4px;
@@ -60,6 +62,7 @@
       transition: width .4s ease;
     }
 
+    /* ── Section card ── */
     .section-card {
       background: #fff;
       border: 1px solid #e5e7eb;
@@ -84,11 +87,12 @@
       white-space: nowrap;
       flex-shrink: 0;
     }
+    .section-badge.waste { background: #dc2626; }
     .section-badge.step1 { background: #7c5cd8; }
     .section-badge.step2 { background: #0891b2; }
     .section-badge.step3 { background: #059669; }
     .section-badge.step4 { background: #d97706; }
-    .section-badge.step5 { background: #db2877; }
+    .section-badge.step5 { background: #db2777; }
     .section-badge.step6 { background: #3b82d4; }
     .section-badge.step7 { background: #64748b; }
 
@@ -109,6 +113,7 @@
     }
     .hint strong { color: #1f2328; }
 
+    /* ── Form elements ── */
     label {
       display: block;
       font-size: 13px;
@@ -156,6 +161,7 @@
     }
     @media (max-width: 560px) { .field-row { grid-template-columns: 1fr; } }
 
+    /* ── Checkbox grid ── */
     .checkbox-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -178,6 +184,7 @@
     .checkbox-item input[type="checkbox"] { margin-top: 2px; flex-shrink: 0; accent-color: #3b82d4; }
     .checkbox-item span { font-size: 13px; color: #1f2328; line-height: 1.4; }
 
+    /* ── Rating row ── */
     .rating-row {
       display: flex;
       gap: 6px;
@@ -207,12 +214,14 @@
       margin-top: 4px;
     }
 
+    /* ── Divider ── */
     .divider {
       border: none;
       border-top: 1px solid #e5e7eb;
       margin: 18px 0;
     }
 
+    /* ── Buttons ── */
     .submit-wrap {
       text-align: center;
       margin-top: 28px;
@@ -247,6 +256,54 @@
     }
     .btn-secondary:hover { border-color: #3b82d4; color: #3b82d4; }
 
+    .btn-download {
+      display: inline-block;
+      padding: 11px 28px;
+      background: #059669;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      margin-left: 10px;
+      transition: background .15s;
+    }
+    .btn-download:hover { background: #047857; }
+
+    /* ── Print / PDF styles ── */
+    @media print {
+      body { background: #fff; padding: 0; font-size: 12px; }
+      .progress-bar-wrap,
+      .submit-wrap,
+      .success-banner { display: none !important; }
+      .page { max-width: 100%; }
+      .header { border-radius: 0; background: #1f2328 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .section-card { border: 1px solid #d1d5db; page-break-inside: avoid; margin-bottom: 14px; padding: 16px 20px; }
+      .section-badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      input[type="text"],
+      input[type="date"],
+      textarea,
+      select {
+        border: none;
+        border-bottom: 1px solid #d1d5db;
+        border-radius: 0;
+        padding: 2px 0;
+        background: transparent;
+        font-size: 12px;
+        min-height: unset;
+        resize: none;
+      }
+      textarea { height: auto; overflow: visible; }
+      .checkbox-item { border: none; padding: 2px 0; }
+      .checkbox-item input[type="checkbox"] { accent-color: #3b82d4; }
+      .rating-btn { border: 1px solid #d1d5db; background: #fff; }
+      .rating-btn.selected { background: #3b82d4 !important; color: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .hint { background: #f7f8fa; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .quote-block { background: #f7f8fa; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+
+    /* ── Quote ── */
     .quote-block {
       border-left: 3px solid #3b82d4;
       padding: 10px 16px;
@@ -257,6 +314,7 @@
     .quote-block p { font-size: 13px; font-style: italic; color: #57606a; }
     .quote-block cite { font-size: 12px; color: #8b949e; display: block; margin-top: 4px; font-style: normal; }
 
+    /* ── Success message ── */
     .success-banner {
       display: none;
       background: #d1fae5;
@@ -273,6 +331,7 @@
 <body>
 <div class="page">
 
+  <!-- Header -->
   <div class="header">
     <div class="header-eyebrow">Agile Champions · IBM BPO</div>
     <h1>Guía de Facilitación — Value Stream Mapping (VSM)</h1>
@@ -286,7 +345,7 @@
     ✅ Formulario guardado correctamente. ¡Buen trabajo facilitando el VSM!
   </div>
 
-  <!-- 0. Datos generales -->
+  <!-- ── 0. Datos generales ── -->
   <div class="section-card">
     <div class="section-header">
       <span class="section-badge step1">Info General</span>
@@ -318,7 +377,7 @@
     </div>
   </div>
 
-  <!-- 1. Alcance -->
+  <!-- ── 1. Alcance ── -->
   <div class="section-card">
     <div class="section-header">
       <span class="section-badge step1">Paso 1</span>
@@ -345,7 +404,7 @@
     </div>
   </div>
 
-  <!-- 2. Estado actual -->
+  <!-- ── 2. Estado actual ── -->
   <div class="section-card">
     <div class="section-header">
       <span class="section-badge step2">Paso 2</span>
@@ -354,11 +413,14 @@
     <div class="hint">
       <strong>Objetivo:</strong> Documentar el proceso tal como es hoy con el equipo multidisciplinario. Usa símbolos estándar: rectángulos (valor agregado), rombos (decisión), óvalos (transferencia de información).
     </div>
+
     <div class="field">
       <label for="pasos-actuales">Pasos / actividades del proceso actual</label>
       <textarea id="pasos-actuales" rows="4" placeholder="1. Recepción de solicitud&#10;2. Validación manual de datos&#10;3. Aprobación del supervisor&#10;…"></textarea>
     </div>
+
     <hr class="divider" />
+
     <p style="font-size:13px; font-weight:600; margin-bottom:12px;">Métricas clave (registra los valores actuales)</p>
     <div class="field-row">
       <div class="field">
@@ -386,7 +448,7 @@
     </div>
   </div>
 
-  <!-- 3. Análisis -->
+  <!-- ── 3. Análisis — desperdicios ── -->
   <div class="section-card">
     <div class="section-header">
       <span class="section-badge step3">Paso 3</span>
@@ -395,21 +457,53 @@
     <div class="hint">
       <strong>Objetivo:</strong> Separar las actividades de valor agregado de las que no aportan valor. Identifica cuellos de botella, demoras y áreas de alta variación.
     </div>
+
     <div class="field">
       <label>Tipos de desperdicio detectados <span class="optional">(selecciona todos los que apliquen)</span></label>
       <div class="checkbox-grid">
-        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="espera" /><span>⏱ Tiempos de espera</span></label>
-        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="retrabajo" /><span>🔄 Retrabajo</span></label>
-        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="defectos" /><span>⚠️ Defectos</span></label>
-        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="trabajo-innecesario" /><span>🗂 Trabajo innecesario</span></label>
-        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="talento-subutilizado" /><span>👤 Talento subutilizado</span></label>
-        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="datos-duplicados" /><span>📋 Entrada de datos duplicada</span></label>
-        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="manual" /><span>🖐 Procesamiento manual rutinario</span></label>
-        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="comunicacion" /><span>💬 Intercambio de info inadecuado</span></label>
-        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="aprobaciones-lentas" /><span>📌 Aprobaciones con largos plazos</span></label>
-        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="calidad" /><span>🔍 Problemas de calidad frecuentes</span></label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="desperdicio" value="espera" />
+          <span>⏱ Tiempos de espera</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="desperdicio" value="retrabajo" />
+          <span>🔄 Retrabajo</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="desperdicio" value="defectos" />
+          <span>⚠️ Defectos</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="desperdicio" value="trabajo-innecesario" />
+          <span>🗂 Trabajo innecesario</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="desperdicio" value="talento-subutilizado" />
+          <span>👤 Talento subutilizado</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="desperdicio" value="datos-duplicados" />
+          <span>📋 Entrada de datos duplicada</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="desperdicio" value="manual" />
+          <span>🖐 Procesamiento manual rutinario</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="desperdicio" value="comunicacion" />
+          <span>💬 Intercambio de info inadecuado</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="desperdicio" value="aprobaciones-lentas" />
+          <span>📌 Aprobaciones con largos plazos</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="desperdicio" value="calidad" />
+          <span>🔍 Problemas de calidad frecuentes</span>
+        </label>
       </div>
     </div>
+
     <div class="field" style="margin-top:16px;">
       <label for="actividades-valor">Actividades de valor agregado identificadas</label>
       <textarea id="actividades-valor" placeholder="¿Qué pasos contribuyen directamente al resultado esperado por el cliente?…"></textarea>
@@ -424,7 +518,7 @@
     </div>
   </div>
 
-  <!-- 4. Estado futuro -->
+  <!-- ── 4. Estado futuro ── -->
   <div class="section-card">
     <div class="section-header">
       <span class="section-badge step4">Paso 4</span>
@@ -433,17 +527,37 @@
     <div class="hint">
       <strong>Objetivo:</strong> Rediseñar el proceso para minimizar desperdicios. Considera las estrategias disponibles — no implica ejecutarlas todas, sino evaluar si pueden generar el valor agregado esperado.
     </div>
+
     <div class="field">
       <label>Estrategias a considerar <span class="optional">(marca las que el equipo evaluó como potencialmente aplicables)</span></label>
       <div class="checkbox-grid">
-        <label class="checkbox-item"><input type="checkbox" name="estrategia" value="automatizacion" /><span>🤖 Automatizar tareas rutinarias (RPA, bots)</span></label>
-        <label class="checkbox-item"><input type="checkbox" name="estrategia" value="facturacion-electronica" /><span>🧾 Facturación electrónica automática</span></label>
-        <label class="checkbox-item"><input type="checkbox" name="estrategia" value="workflow" /><span>🔀 Sistema de gestión de flujo de trabajo</span></label>
-        <label class="checkbox-item"><input type="checkbox" name="estrategia" value="colaboracion" /><span>🤝 Mejora de colaboración entre squads</span></label>
-        <label class="checkbox-item"><input type="checkbox" name="estrategia" value="estandarizacion" /><span>📏 Estandarización de criterios y formatos</span></label>
-        <label class="checkbox-item"><input type="checkbox" name="estrategia" value="otra" /><span>➕ Otra (detallar abajo)</span></label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="estrategia" value="automatizacion" />
+          <span>🤖 Automatizar tareas rutinarias (RPA, bots)</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="estrategia" value="facturacion-electronica" />
+          <span>🧾 Facturación electrónica automática</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="estrategia" value="workflow" />
+          <span>🔀 Sistema de gestión de flujo de trabajo</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="estrategia" value="colaboracion" />
+          <span>🤝 Mejora de colaboración entre squads</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="estrategia" value="estandarizacion" />
+          <span>📏 Estandarización de criterios y formatos</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="estrategia" value="otra" />
+          <span>➕ Otra (detallar abajo)</span>
+        </label>
       </div>
     </div>
+
     <div class="field" style="margin-top:16px;">
       <label for="estado-futuro-desc">Descripción del estado futuro propuesto</label>
       <textarea id="estado-futuro-desc" rows="4" placeholder="Describe cómo quedaría el proceso rediseñado paso a paso…"></textarea>
@@ -460,7 +574,7 @@
     </div>
   </div>
 
-  <!-- 5. Plan de implementación -->
+  <!-- ── 5. Plan de implementación ── -->
   <div class="section-card">
     <div class="section-header">
       <span class="section-badge step5">Paso 5</span>
@@ -489,7 +603,7 @@
     </div>
   </div>
 
-  <!-- 6. Supervisar -->
+  <!-- ── 6. Supervisar y controlar ── -->
   <div class="section-card">
     <div class="section-header">
       <span class="section-badge step6">Paso 6</span>
@@ -528,7 +642,7 @@
     </div>
   </div>
 
-  <!-- 7. Reflexión -->
+  <!-- ── 7. Reflexión del facilitador ── -->
   <div class="section-card">
     <div class="section-header">
       <span class="section-badge step7">Reflexión</span>
@@ -545,6 +659,7 @@
       </div>
       <div class="rating-labels"><span>Poco alineado</span><span>Muy alineado</span></div>
     </div>
+
     <div class="field" style="margin-top:16px;">
       <label>¿Qué tan claro quedó el camino hacia el estado futuro?</label>
       <div class="rating-row" id="ratingClaridad">
@@ -556,6 +671,7 @@
       </div>
       <div class="rating-labels"><span>Poco claro</span><span>Muy claro</span></div>
     </div>
+
     <div class="field" style="margin-top:16px;">
       <label for="aprendizajes">Aprendizajes clave del taller <span class="optional">(notas del facilitador)</span></label>
       <textarea id="aprendizajes" rows="3" placeholder="¿Qué surgió de forma inesperada? ¿Qué mejorarías en la próxima sesión?…"></textarea>
@@ -564,20 +680,24 @@
       <label for="proximos-pasos">Próximos pasos acordados con el equipo</label>
       <textarea id="proximos-pasos" rows="2" placeholder="Ej. Revisión del plan en Sprint Review del lunes, asignar owner del piloto…"></textarea>
     </div>
+
     <div class="quote-block">
       <p>"No se puede generar progreso cuando nos conformamos con las situaciones existentes."</p>
       <cite>— Taiichi Ohno, Toyota</cite>
     </div>
   </div>
 
+  <!-- Submit -->
   <div class="submit-wrap">
     <button type="button" class="btn-secondary" onclick="clearForm()">Limpiar formulario</button>
     <button type="button" class="btn-primary" onclick="submitForm()">Guardar y finalizar taller</button>
+    <button type="button" class="btn-download" onclick="downloadPDF()">⬇ Descargar reporte PDF</button>
   </div>
 
-</div>
+</div><!-- .page -->
 
 <script>
+  // Progress tracking
   function updateProgress() {
     const allInputs = document.querySelectorAll('input[type="text"], input[type="date"], textarea, select');
     let filled = 0;
@@ -590,6 +710,7 @@
     el.addEventListener('change', updateProgress);
   });
 
+  // Rating buttons
   document.querySelectorAll('.rating-row').forEach(row => {
     row.querySelectorAll('.rating-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -600,6 +721,7 @@
     });
   });
 
+  // Checkbox items visual
   document.querySelectorAll('.checkbox-item input[type="checkbox"]').forEach(cb => {
     cb.addEventListener('change', () => {
       cb.closest('.checkbox-item').style.borderColor = cb.checked ? '#3b82d4' : '';
@@ -610,6 +732,28 @@
   function submitForm() {
     document.getElementById('successBanner').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function downloadPDF() {
+    // Expand all textareas to their full content height so nothing gets clipped in print
+    const textareas = document.querySelectorAll('textarea');
+    textareas.forEach(ta => {
+      ta.style.height = ta.scrollHeight + 'px';
+      ta.style.overflow = 'visible';
+    });
+    // Briefly show the success banner so it appears in the PDF header
+    const banner = document.getElementById('successBanner');
+    const wasHidden = banner.style.display === 'none' || banner.style.display === '';
+    if (wasHidden) banner.style.display = 'block';
+
+    window.print();
+
+    // Restore after the print dialog closes
+    textareas.forEach(ta => {
+      ta.style.height = '';
+      ta.style.overflow = '';
+    });
+    if (wasHidden) banner.style.display = 'none';
   }
 
   function clearForm() {
