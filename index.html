@@ -221,6 +221,82 @@
       margin: 18px 0;
     }
 
+    /* ── Dynamic tables ── */
+    .vsm-table-wrap { overflow-x: auto; margin-top: 6px; }
+    .vsm-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .vsm-table th {
+      background: #f7f8fa;
+      color: #57606a;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: 8px 10px;
+      border: 1px solid #e5e7eb;
+      text-align: left;
+    }
+    .vsm-table td {
+      border: 1px solid #e5e7eb;
+      padding: 4px 6px;
+      vertical-align: top;
+    }
+    .vsm-table td input[type="text"],
+    .vsm-table td textarea {
+      border: none;
+      border-radius: 0;
+      padding: 4px 6px;
+      font-size: 13px;
+      min-height: unset;
+      resize: none;
+      background: transparent;
+      width: 100%;
+      box-shadow: none;
+    }
+    .vsm-table td input[type="text"]:focus,
+    .vsm-table td textarea:focus {
+      background: #f0f6ff;
+      outline: none;
+      box-shadow: none;
+    }
+    .vsm-table td textarea { min-height: 52px; overflow: hidden; }
+    .vsm-table .col-num { width: 32px; text-align: center; color: #8b949e; font-size: 12px; }
+    .vsm-table .col-ta  { width: 110px; }
+    .vsm-table .col-del { width: 28px; }
+    .add-row-btn {
+      margin-top: 8px;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px dashed #d1d5db;
+      border-radius: 6px;
+      background: #fff;
+      color: #57606a;
+      cursor: pointer;
+      transition: border-color .15s, color .15s;
+    }
+    .add-row-btn:hover { border-color: #3b82d4; color: #3b82d4; }
+    .del-row-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #d1d5db;
+      font-size: 16px;
+      padding: 0 4px;
+      line-height: 1;
+      transition: color .15s;
+    }
+    .del-row-btn:hover { color: #dc2626; }
+
+    @media print {
+      .add-row-btn, .del-row-btn { display: none !important; }
+      .vsm-table td input[type="text"],
+      .vsm-table td textarea { background: transparent !important; }
+    }
+
     /* ── Buttons ── */
     .submit-wrap {
       text-align: center;
@@ -345,7 +421,7 @@
     ✅ Formulario guardado correctamente. ¡Buen trabajo facilitando el VSM!
   </div>
 
-  <!-- ── 0. Datos generales ── -->
+  <!-- 0. Datos generales -->
   <div class="section-card">
     <div class="section-header">
       <span class="section-badge step1">Info General</span>
@@ -377,7 +453,7 @@
     </div>
   </div>
 
-  <!-- ── 1. Alcance ── -->
+  <!-- 1. Alcance -->
   <div class="section-card">
     <div class="section-header">
       <span class="section-badge step1">Paso 1</span>
@@ -404,7 +480,7 @@
     </div>
   </div>
 
-  <!-- ── 2. Estado actual ── -->
+  <!-- 2. Estado actual -->
   <div class="section-card">
     <div class="section-header">
       <span class="section-badge step2">Paso 2</span>
@@ -415,8 +491,22 @@
     </div>
 
     <div class="field">
-      <label for="pasos-actuales">Pasos / actividades del proceso actual</label>
-      <textarea id="pasos-actuales" rows="4" placeholder="1. Recepción de solicitud&#10;2. Validación manual de datos&#10;3. Aprobación del supervisor&#10;…"></textarea>
+      <label>Pasos / actividades del proceso actual</label>
+      <div class="vsm-table-wrap">
+        <table class="vsm-table" id="tabla-actual">
+          <thead>
+            <tr>
+              <th class="col-num">#</th>
+              <th>A. Paso / Actividad del proceso actual</th>
+              <th class="col-ta">B. TA <span style="font-weight:400;text-transform:none;font-size:10px">(Tiempo actual)</span></th>
+              <th>C. Tareas <span style="font-weight:400;text-transform:none;font-size:10px">(¿qué se hace para llevarla a cabo?)</span></th>
+              <th class="col-del"></th>
+            </tr>
+          </thead>
+          <tbody id="tabla-actual-body"></tbody>
+        </table>
+      </div>
+      <button type="button" class="add-row-btn" onclick="addRow('tabla-actual-body', tablaActualCols)">+ Agregar paso</button>
     </div>
 
     <hr class="divider" />
@@ -448,7 +538,7 @@
     </div>
   </div>
 
-  <!-- ── 3. Análisis — desperdicios ── -->
+  <!-- 3. Análisis -->
   <div class="section-card">
     <div class="section-header">
       <span class="section-badge step3">Paso 3</span>
@@ -457,53 +547,21 @@
     <div class="hint">
       <strong>Objetivo:</strong> Separar las actividades de valor agregado de las que no aportan valor. Identifica cuellos de botella, demoras y áreas de alta variación.
     </div>
-
     <div class="field">
       <label>Tipos de desperdicio detectados <span class="optional">(selecciona todos los que apliquen)</span></label>
       <div class="checkbox-grid">
-        <label class="checkbox-item">
-          <input type="checkbox" name="desperdicio" value="espera" />
-          <span>⏱ Tiempos de espera</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="desperdicio" value="retrabajo" />
-          <span>🔄 Retrabajo</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="desperdicio" value="defectos" />
-          <span>⚠️ Defectos</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="desperdicio" value="trabajo-innecesario" />
-          <span>🗂 Trabajo innecesario</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="desperdicio" value="talento-subutilizado" />
-          <span>👤 Talento subutilizado</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="desperdicio" value="datos-duplicados" />
-          <span>📋 Entrada de datos duplicada</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="desperdicio" value="manual" />
-          <span>🖐 Procesamiento manual rutinario</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="desperdicio" value="comunicacion" />
-          <span>💬 Intercambio de info inadecuado</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="desperdicio" value="aprobaciones-lentas" />
-          <span>📌 Aprobaciones con largos plazos</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="desperdicio" value="calidad" />
-          <span>🔍 Problemas de calidad frecuentes</span>
-        </label>
+        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="espera" /><span>⏱ Tiempos de espera</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="retrabajo" /><span>🔄 Retrabajo</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="defectos" /><span>⚠️ Defectos</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="trabajo-innecesario" /><span>🗂 Trabajo innecesario</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="talento-subutilizado" /><span>👤 Talento subutilizado</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="datos-duplicados" /><span>📋 Entrada de datos duplicada</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="manual" /><span>🖐 Procesamiento manual rutinario</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="comunicacion" /><span>💬 Intercambio de info inadecuado</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="aprobaciones-lentas" /><span>📌 Aprobaciones con largos plazos</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="desperdicio" value="calidad" /><span>🔍 Problemas de calidad frecuentes</span></label>
       </div>
     </div>
-
     <div class="field" style="margin-top:16px;">
       <label for="actividades-valor">Actividades de valor agregado identificadas</label>
       <textarea id="actividades-valor" placeholder="¿Qué pasos contribuyen directamente al resultado esperado por el cliente?…"></textarea>
@@ -518,7 +576,7 @@
     </div>
   </div>
 
-  <!-- ── 4. Estado futuro ── -->
+  <!-- 4. Estado futuro -->
   <div class="section-card">
     <div class="section-header">
       <span class="section-badge step4">Paso 4</span>
@@ -527,41 +585,38 @@
     <div class="hint">
       <strong>Objetivo:</strong> Rediseñar el proceso para minimizar desperdicios. Considera las estrategias disponibles — no implica ejecutarlas todas, sino evaluar si pueden generar el valor agregado esperado.
     </div>
-
     <div class="field">
       <label>Estrategias a considerar <span class="optional">(marca las que el equipo evaluó como potencialmente aplicables)</span></label>
       <div class="checkbox-grid">
-        <label class="checkbox-item">
-          <input type="checkbox" name="estrategia" value="automatizacion" />
-          <span>🤖 Automatizar tareas rutinarias (RPA, bots)</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="estrategia" value="facturacion-electronica" />
-          <span>🧾 Facturación electrónica automática</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="estrategia" value="workflow" />
-          <span>🔀 Sistema de gestión de flujo de trabajo</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="estrategia" value="colaboracion" />
-          <span>🤝 Mejora de colaboración entre squads</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="estrategia" value="estandarizacion" />
-          <span>📏 Estandarización de criterios y formatos</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="estrategia" value="otra" />
-          <span>➕ Otra (detallar abajo)</span>
-        </label>
+        <label class="checkbox-item"><input type="checkbox" name="estrategia" value="automatizacion" /><span>🤖 Automatizar tareas rutinarias (RPA, bots)</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="estrategia" value="facturacion-electronica" /><span>🧾 Facturación electrónica automática</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="estrategia" value="workflow" /><span>🔀 Sistema de gestión de flujo de trabajo</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="estrategia" value="colaboracion" /><span>🤝 Mejora de colaboración entre squads</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="estrategia" value="estandarizacion" /><span>📏 Estandarización de criterios y formatos</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="estrategia" value="otra" /><span>➕ Otra (detallar abajo)</span></label>
       </div>
     </div>
 
     <div class="field" style="margin-top:16px;">
-      <label for="estado-futuro-desc">Descripción del estado futuro propuesto</label>
-      <textarea id="estado-futuro-desc" rows="4" placeholder="Describe cómo quedaría el proceso rediseñado paso a paso…"></textarea>
+      <label>Descripción del estado futuro propuesto</label>
+      <div class="vsm-table-wrap">
+        <table class="vsm-table" id="tabla-futuro">
+          <thead>
+            <tr>
+              <th class="col-num">#</th>
+              <th>A. Paso / Actividad</th>
+              <th class="col-ta">B. TA Actual <span style="font-weight:400;text-transform:none;font-size:10px">(Tiempo actual)</span></th>
+              <th>C. Mejora propuesta <span style="font-weight:400;text-transform:none;font-size:10px">(¿qué cambia o se elimina?)</span></th>
+              <th class="col-ta">D. TA Esperado <span style="font-weight:400;text-transform:none;font-size:10px">(Tiempo futuro)</span></th>
+              <th class="col-del"></th>
+            </tr>
+          </thead>
+          <tbody id="tabla-futuro-body"></tbody>
+        </table>
+      </div>
+      <button type="button" class="add-row-btn" onclick="addRow('tabla-futuro-body', tablaFuturoCols)">+ Agregar paso</button>
     </div>
+
     <div class="field-row">
       <div class="field">
         <label for="tiempo-ciclo-futuro">Tiempo de ciclo esperado</label>
@@ -574,7 +629,7 @@
     </div>
   </div>
 
-  <!-- ── 5. Plan de implementación ── -->
+  <!-- 5. Plan de implementación -->
   <div class="section-card">
     <div class="section-header">
       <span class="section-badge step5">Paso 5</span>
@@ -603,7 +658,7 @@
     </div>
   </div>
 
-  <!-- ── 6. Supervisar y controlar ── -->
+  <!-- 6. Supervisar -->
   <div class="section-card">
     <div class="section-header">
       <span class="section-badge step6">Paso 6</span>
@@ -642,7 +697,7 @@
     </div>
   </div>
 
-  <!-- ── 7. Reflexión del facilitador ── -->
+  <!-- 7. Reflexión -->
   <div class="section-card">
     <div class="section-header">
       <span class="section-badge step7">Reflexión</span>
@@ -659,7 +714,6 @@
       </div>
       <div class="rating-labels"><span>Poco alineado</span><span>Muy alineado</span></div>
     </div>
-
     <div class="field" style="margin-top:16px;">
       <label>¿Qué tan claro quedó el camino hacia el estado futuro?</label>
       <div class="rating-row" id="ratingClaridad">
@@ -671,7 +725,6 @@
       </div>
       <div class="rating-labels"><span>Poco claro</span><span>Muy claro</span></div>
     </div>
-
     <div class="field" style="margin-top:16px;">
       <label for="aprendizajes">Aprendizajes clave del taller <span class="optional">(notas del facilitador)</span></label>
       <textarea id="aprendizajes" rows="3" placeholder="¿Qué surgió de forma inesperada? ¿Qué mejorarías en la próxima sesión?…"></textarea>
@@ -680,7 +733,6 @@
       <label for="proximos-pasos">Próximos pasos acordados con el equipo</label>
       <textarea id="proximos-pasos" rows="2" placeholder="Ej. Revisión del plan en Sprint Review del lunes, asignar owner del piloto…"></textarea>
     </div>
-
     <div class="quote-block">
       <p>"No se puede generar progreso cuando nos conformamos con las situaciones existentes."</p>
       <cite>— Taiichi Ohno, Toyota</cite>
@@ -697,7 +749,6 @@
 </div><!-- .page -->
 
 <script>
-  // Progress tracking
   function updateProgress() {
     const allInputs = document.querySelectorAll('input[type="text"], input[type="date"], textarea, select');
     let filled = 0;
@@ -710,7 +761,6 @@
     el.addEventListener('change', updateProgress);
   });
 
-  // Rating buttons
   document.querySelectorAll('.rating-row').forEach(row => {
     row.querySelectorAll('.rating-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -721,7 +771,6 @@
     });
   });
 
-  // Checkbox items visual
   document.querySelectorAll('.checkbox-item input[type="checkbox"]').forEach(cb => {
     cb.addEventListener('change', () => {
       cb.closest('.checkbox-item').style.borderColor = cb.checked ? '#3b82d4' : '';
@@ -735,26 +784,91 @@
   }
 
   function downloadPDF() {
-    // Expand all textareas to their full content height so nothing gets clipped in print
     const textareas = document.querySelectorAll('textarea');
     textareas.forEach(ta => {
       ta.style.height = ta.scrollHeight + 'px';
       ta.style.overflow = 'visible';
     });
-    // Briefly show the success banner so it appears in the PDF header
     const banner = document.getElementById('successBanner');
     const wasHidden = banner.style.display === 'none' || banner.style.display === '';
     if (wasHidden) banner.style.display = 'block';
-
     window.print();
-
-    // Restore after the print dialog closes
     textareas.forEach(ta => {
       ta.style.height = '';
       ta.style.overflow = '';
     });
     if (wasHidden) banner.style.display = 'none';
   }
+
+  // ── Dynamic table helpers ──
+  const tablaActualCols = [
+    { type: 'text',     placeholder: 'Ej. Validación de datos' },
+    { type: 'text',     placeholder: 'Ej. 30 min' },
+    { type: 'textarea', placeholder: 'Describe las tareas…' },
+  ];
+  const tablaFuturoCols = [
+    { type: 'text',     placeholder: 'Ej. Validación automática' },
+    { type: 'text',     placeholder: 'Ej. 30 min' },
+    { type: 'textarea', placeholder: 'Describe la mejora…' },
+    { type: 'text',     placeholder: 'Ej. 5 min' },
+  ];
+
+  function addRow(tbodyId, cols) {
+    const tbody = document.getElementById(tbodyId);
+    const rowIdx = tbody.rows.length + 1;
+    const tr = document.createElement('tr');
+
+    const tdNum = document.createElement('td');
+    tdNum.className = 'col-num';
+    tdNum.textContent = rowIdx;
+    tr.appendChild(tdNum);
+
+    cols.forEach(col => {
+      const td = document.createElement('td');
+      const el = document.createElement(col.type === 'textarea' ? 'textarea' : 'input');
+      if (col.type !== 'textarea') el.type = 'text';
+      el.placeholder = col.placeholder;
+      if (col.type === 'textarea') {
+        el.rows = 2;
+        el.addEventListener('input', function() {
+          this.style.height = 'auto';
+          this.style.height = this.scrollHeight + 'px';
+        });
+      }
+      el.addEventListener('input', updateProgress);
+      td.appendChild(el);
+      tr.appendChild(td);
+    });
+
+    const tdDel = document.createElement('td');
+    tdDel.className = 'col-del';
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'del-row-btn';
+    btn.textContent = '×';
+    btn.title = 'Eliminar fila';
+    btn.addEventListener('click', () => {
+      tr.remove();
+      renumberRows(tbodyId);
+      updateProgress();
+    });
+    tdDel.appendChild(btn);
+    tr.appendChild(tdDel);
+
+    tbody.appendChild(tr);
+    updateProgress();
+  }
+
+  function renumberRows(tbodyId) {
+    document.querySelectorAll(`#${tbodyId} tr`).forEach((row, i) => {
+      const numCell = row.querySelector('.col-num');
+      if (numCell) numCell.textContent = i + 1;
+    });
+  }
+
+  // Seed tables with 3 blank rows on load
+  [0,1,2].forEach(() => addRow('tabla-actual-body', tablaActualCols));
+  [0,1,2].forEach(() => addRow('tabla-futuro-body', tablaFuturoCols));
 
   function clearForm() {
     if (!confirm('¿Deseas limpiar todos los campos del formulario?')) return;
@@ -768,6 +882,10 @@
     document.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('selected'));
     document.getElementById('successBanner').style.display = 'none';
     document.getElementById('progressFill').style.width = '0%';
+    document.getElementById('tabla-actual-body').innerHTML = '';
+    document.getElementById('tabla-futuro-body').innerHTML = '';
+    [0,1,2].forEach(() => addRow('tabla-actual-body', tablaActualCols));
+    [0,1,2].forEach(() => addRow('tabla-futuro-body', tablaFuturoCols));
   }
 </script>
 </body>
