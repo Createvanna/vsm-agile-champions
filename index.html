@@ -731,7 +731,7 @@
     </div>
     <div class="field">
       <label for="proximos-pasos">Próximos pasos acordados con el equipo</label>
-      <textarea id="proximos-pasos" rows="2" placeholder="Ej. Revisión del plan en Sprint Review del lunes, asignar owner del piloto…"></textarea>
+      <textarea id="proximos-pasos" rows="2" placeholder="Ej. Revisión del plan en Stand-up o Planeación de iteración, asignar owner del piloto…"></textarea>
     </div>
     <div class="quote-block">
       <p>"No se puede generar progreso cuando nos conformamos con las situaciones existentes."</p>
@@ -800,7 +800,6 @@
     if (wasHidden) banner.style.display = 'none';
   }
 
-  // ── Dynamic table helpers ──
   const tablaActualCols = [
     { type: 'text',     placeholder: 'Ej. Validación de datos' },
     { type: 'text',     placeholder: 'Ej. 30 min' },
@@ -866,7 +865,6 @@
     });
   }
 
-  // Seed tables with 3 blank rows on load
   [0,1,2].forEach(() => addRow('tabla-actual-body', tablaActualCols));
   [0,1,2].forEach(() => addRow('tabla-futuro-body', tablaFuturoCols));
 
